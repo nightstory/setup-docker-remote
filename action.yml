@@ -1,0 +1,27 @@
+name: 'setup-docker-remote'
+description: 'Setup SSH and docker environment for remote deployment'
+branding:
+  icon: briefcase
+  color: blue
+inputs:
+  ssh_key:
+    description: 'Raw content of the private key (~/.ssh/id_rsa)'
+    required: false
+  ssh_host_user:
+    description: 'SSH username, e.g. from username@host use username'
+    required: false
+  ssh_host:
+    description: 'SSH host, e.g. from username@host use host'
+    required: false
+  ssh_known_hosts:
+    description: 'Raw content of the known_hosts file (~/.ssh/known_hosts)'
+    required: false
+  ssh_skip_strict_host:
+    description: 'If true, will set StrictHostKeyChecking to no for * host'
+    default: 'true'
+    required: false
+runs:
+  using: 'node16'
+  main: 'lib_main/index.js'
+  post: 'lib_post/index.js'
+  post-if: 'success()'
